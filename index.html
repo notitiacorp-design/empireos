@@ -6,33 +6,57 @@
 <title>EmpireOS</title>
 <style>
   :root {
-    --bg: #050505;
-    --text: #f0f0f0;
-    --text-dim: #777;
-    --accent: #10b981;
+    --bg: #000;
+    --text-hidden: rgba(255,255,255,0.04);
+    --glow-color: 255, 220, 180;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
-
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     background: var(--bg);
-    color: var(--text);
+    color: var(--text-hidden);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    cursor: none;
     overflow-x: hidden;
   }
 
-  #bg {
+  /* Light overlay — mix-blend-mode: color-dodge brightens text */
+  #light {
     position: fixed;
     top: 0; left: 0;
     width: 100vw; height: 100vh;
-    z-index: 0;
     pointer-events: none;
+    z-index: 10;
+    mix-blend-mode: screen;
+    background: radial-gradient(
+      circle 220px at 50% 50%,
+      rgba(var(--glow-color), 0.95) 0%,
+      rgba(var(--glow-color), 0.4) 35%,
+      rgba(var(--glow-color), 0.06) 70%,
+      transparent 100%
+    );
+    transition: background 0.015s linear;
   }
 
+  /* Cursor glow dot */
+  #cursor {
+    position: fixed;
+    pointer-events: none;
+    z-index: 11;
+    width: 8px; height: 8px;
+    background: rgba(var(--glow-color), 0.9);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow:
+      0 0 20px 8px rgba(var(--glow-color), 0.6),
+      0 0 60px 20px rgba(var(--glow-color), 0.25),
+      0 0 120px 40px rgba(var(--glow-color), 0.1);
+  }
+
+  /* Content */
   main {
     position: relative;
     z-index: 1;
@@ -47,114 +71,68 @@
   }
 
   .block {
-    max-width: 640px;
+    max-width: 600px;
     width: 100%;
+    transition: color 0.3s;
   }
 
-  /* Hero */
-  .hero h1 {
-    font-size: clamp(56px, 10vw, 112px);
+  /* Text */
+  h1 {
+    font-size: clamp(52px, 9vw, 104px);
     font-weight: 400;
     line-height: 0.95;
     letter-spacing: -0.04em;
-    margin-bottom: 40px;
+    margin-bottom: 36px;
   }
 
-  .hero h1 .char {
-    display: inline-block;
-    opacity: 0;
-    transform: translateY(60px) rotateX(-40deg);
-    animation: char-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  @keyframes char-in {
-    to { opacity: 1; transform: translateY(0) rotateX(0); }
-  }
-
-  .hero p {
-    font-size: 18px;
-    color: var(--text-dim);
-    max-width: 380px;
-    line-height: 1.7;
-    opacity: 0;
-    animation: fade-in 1s ease 1.2s forwards;
-  }
-
-  @keyframes fade-in {
-    to { opacity: 1; }
-  }
-
-  /* What */
-  .what h2, .how h2, .price h2 {
-    font-size: clamp(32px, 5vw, 56px);
+  h2 {
+    font-size: clamp(28px, 4.5vw, 52px);
     font-weight: 400;
-    line-height: 1.1;
+    line-height: 1.12;
     letter-spacing: -0.03em;
     margin-bottom: 24px;
   }
 
-  .what p, .how p {
+  p {
     font-size: 17px;
-    color: var(--text-dim);
-    max-width: 440px;
     line-height: 1.7;
+    max-width: 420px;
   }
 
-  /* How */
-  .how-list {
-    margin-top: 48px;
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-  }
-
-  .how-item {
-    display: flex;
-    gap: 20px;
-    align-items: baseline;
-  }
-
-  .how-num {
+  .num {
     font-size: 13px;
-    color: var(--text-dim);
+    margin-bottom: 6px;
     font-variant-numeric: tabular-nums;
-    min-width: 24px;
   }
 
-  .how-item h3 {
-    font-size: 17px;
+  .step {
+    margin-bottom: 36px;
+  }
+  .step h3 {
+    font-size: 18px;
     font-weight: 400;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
   }
-
-  .how-item p {
-    font-size: 15px;
-    color: var(--text-dim);
-  }
+  .step p { font-size: 15px; }
 
   /* Pricing */
-  .price-options {
-    margin-top: 48px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
+  .price-row {
+    display: flex;
+    gap: 48px;
+    margin-top: 40px;
   }
 
-  .price-opt {
-    padding: 40px;
-    background: rgba(255,255,255,0.02);
-  }
+  .price-item { flex: 1; }
 
   .price-label {
     font-size: 12px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--text-dim);
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
 
-  .price-num {
-    font-size: 56px;
+  .price-amount {
+    font-size: 52px;
     font-weight: 400;
     letter-spacing: -0.03em;
     margin-bottom: 2px;
@@ -162,149 +140,140 @@
 
   .price-sub {
     font-size: 13px;
-    color: var(--text-dim);
-    margin-bottom: 16px;
+    margin-bottom: 10px;
   }
 
   .price-setup {
     font-size: 13px;
-    color: var(--text-dim);
-    padding-top: 12px;
-    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 10px;
+    margin-top: 10px;
   }
 
   /* CTA */
-  .cta-btn {
+  .cta-section { text-align: center; }
+
+  .cta-section a {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     font-size: 16px;
-    color: var(--bg);
-    background: var(--text);
+    color: #000;
+    background: rgba(var(--glow-color), 0.9);
     padding: 14px 28px;
     border-radius: 6px;
     text-decoration: none;
     font-weight: 500;
-    transition: background 0.2s, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: background 0.2s;
+    cursor: none;
   }
 
-  .cta-btn:hover {
-    background: #fff;
-    transform: scale(1.02);
-  }
+  .cta-section a:hover { background: rgba(var(--glow-color), 1); }
 
-  .cta-arrow {
-    display: inline-block;
-    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .cta-btn:hover .cta-arrow { transform: translateX(3px); }
-
-  /* Reveals */
-  .reveal {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .reveal.in {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .reveal-d1 { transition-delay: 0.1s; }
-  .reveal-d2 { transition-delay: 0.25s; }
-  .reveal-d3 { transition-delay: 0.4s; }
-
-  /* Grain overlay */
+  /* Grain */
   .grain {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    z-index: 999;
+    z-index: 9;
     pointer-events: none;
-    opacity: 0.04;
-    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-size: 200px 200px;
+    opacity: 0.03;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+  }
+
+  /* Breathing glow — auto-illuminates the current section slightly */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(
+      ellipse 80% 50% at 50% 50%,
+      rgba(var(--glow-color), 0.025) 0%,
+      transparent 70%
+    );
+    opacity: 0.5;
+    animation: breathe 8s ease-in-out infinite;
+  }
+
+  @keyframes breathe {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
   }
 
   @media (max-width: 768px) {
-    .price-options { grid-template-columns: 1fr; }
+    .price-row { flex-direction: column; gap: 32px; }
     section { padding: 60px 20px; }
-    .hero h1 { font-size: clamp(40px, 12vw, 64px); }
+    #light { background: radial-gradient(circle 160px at 50% 50%, rgba(var(--glow-color), 0.95) 0%, rgba(var(--glow-color), 0.4) 35%, rgba(var(--glow-color), 0.06) 70%, transparent 100%); }
   }
 
   @media (prefers-reduced-motion) {
-    .hero h1 .char { opacity: 1; transform: none; animation: none; }
-    .reveal { opacity: 1; transform: none; transition: none; }
-    #bg { display: none; }
-    .grain { display: none; }
+    body::after { animation: none; opacity: 0.5; }
   }
 </style>
 </head>
 <body>
 
-<canvas id="bg"></canvas>
+<div id="light"></div>
+<div id="cursor"></div>
 <div class="grain"></div>
 
 <main>
 
-  <section class="hero">
+  <section>
     <div class="block">
-      <h1 id="hero-text"></h1>
-      <p>Léon gère vos voyageurs, vos check-ins, vos ménages. Vous dormez.</p>
+      <h1>Votre back&#8209;office.</h1>
+      <p>Léon répond à vos voyageurs, coordonne vos check-ins, gère vos prestataires. Et vous, vous dormez.</p>
     </div>
   </section>
 
-  <section class="what">
+  <section>
     <div class="block">
-      <h2 class="reveal">Arrêtez de répondre à 23h.</h2>
-      <p class="reveal reveal-d1">Une conciergerie qui tourne bien, c'est une conciergerie où le gérant n'est pas l'assistant. On installe Léon sur votre téléphone, on le forme sur vos biens, et vous récupérez vos soirées.</p>
+      <h2>Arrêtez de répondre à vos messages à 23h.</h2>
+      <p>Une conciergerie qui tourne, c'est une conciergerie où le gérant dort la nuit. On branche Léon sur votre téléphone. On le forme sur vos biens. Vous récupérez votre temps.</p>
     </div>
   </section>
 
-  <section class="how">
+  <section>
     <div class="block">
-      <h2 class="reveal">En trois jours, c'est en place.</h2>
-      <div class="how-list">
-        <div class="how-item reveal reveal-d1">
-          <div class="how-num">1</div>
-          <div>
-            <h3>Vous nous filez vos infos</h3>
-            <p>Adresses, codes, contacts ménage. Ce que vous savez déjà.</p>
-          </div>
-        </div>
-        <div class="how-item reveal reveal-d2">
-          <div class="how-num">2</div>
-          <div>
-            <h3>On forme Léon sur vos procédures</h3>
-            <p>Check-in à 15h, check-out à 11h, Karine pour le ménage, M. Dubois pour la plomberie.</p>
-          </div>
-        </div>
-        <div class="how-item reveal reveal-d3">
-          <div class="how-num">3</div>
-          <div>
-            <h3>Vous recevez un résumé le matin</h3>
-            <p>Pas 47 notifications. Un récap de ce qui s'est passé, ce qui est prévu, ce qui cloche.</p>
-          </div>
-        </div>
+      <h2>Trois jours, et c'est en place.</h2>
+
+      <div class="step">
+        <div class="num">1</div>
+        <h3>Vous nous passez vos infos</h3>
+        <p>Adresses, codes d'accès, contacts ménage. Rien que vous ne sachiez déjà.</p>
+      </div>
+
+      <div class="step">
+        <div class="num">2</div>
+        <h3>On forme Léon sur vos procédures</h3>
+        <p>Check-in 15h. Check-out 11h. Karine pour le ménage. Dubois pour la plomberie.</p>
+      </div>
+
+      <div class="step">
+        <div class="num">3</div>
+        <h3>Un résumé le matin, pas 47 notifications</h3>
+        <p>Ce qui s'est passé cette nuit. Ce qui est prévu aujourd'hui. Ce qui cloche.</p>
       </div>
     </div>
   </section>
 
-  <section class="price">
+  <section>
     <div class="block">
-      <h2 class="reveal">Combien ça coûte.</h2>
-      <div class="price-options">
-        <div class="price-opt reveal reveal-d1">
+      <h2>Combien.</h2>
+
+      <div class="price-row">
+        <div class="price-item">
           <div class="price-label">Essentiel</div>
-          <div class="price-num">290€</div>
+          <div class="price-amount">290€</div>
           <div class="price-sub">par mois</div>
           <div class="price-setup">+ 500€ une fois</div>
         </div>
-        <div class="price-opt reveal reveal-d2">
+        <div class="price-item">
           <div class="price-label">Pilote</div>
-          <div class="price-num">490€</div>
+          <div class="price-amount">490€</div>
           <div class="price-sub">par mois</div>
           <div class="price-setup">+ 900€ une fois</div>
         </div>
@@ -312,183 +281,58 @@
     </div>
   </section>
 
-  <section>
-    <div class="block" style="text-align:center;">
-      <h2 class="reveal" style="margin-bottom:40px;">Première semaine gratuite.</h2>
-      <div class="reveal reveal-d1" style="margin-bottom:32px;">
-        <p style="font-size:17px;color:var(--text-dim);">Pas d'engagement. Pas de contrat. Juste un essai.</p>
-      </div>
-      <div class="reveal reveal-d2">
-        <a href="#" class="cta-btn">
-          Parler à Léon
-          <span class="cta-arrow">→</span>
-        </a>
-      </div>
+  <section class="cta-section">
+    <div class="block">
+      <h2>Première semaine offerte.</h2>
+      <p style="margin:0 auto 32px;">Pas d'engagement. Pas de contrat.</p>
+      <a href="#">Parler à Léon →</a>
     </div>
   </section>
 
 </main>
 
-<!-- Shader background -->
-<script id="vert" type="x-shader/x-vertex">
-  attribute vec2 pos;
-  void main() { gl_Position = vec4(pos, 0.0, 1.0); }
-</script>
-<script id="frag" type="x-shader/x-frag">
-  precision highp float;
-  uniform vec2 u_res;
-  uniform float u_time;
-  uniform vec2 u_mouse;
-
-  float noise(vec2 p) {
-    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
-  }
-
-  float smoothNoise(vec2 p) {
-    vec2 i = floor(p);
-    vec2 f = fract(p);
-    f = f * f * (3.0 - 2.0 * f);
-    return mix(
-      mix(noise(i), noise(i + vec2(1.0, 0.0)), f.x),
-      mix(noise(i + vec2(0.0, 1.0)), noise(i + vec2(1.0, 1.0)), f.x),
-      f.y
-    );
-  }
-
-  void main() {
-    vec2 uv = gl_FragCoord.xy / u_res;
-
-    // Multi-octave noise field
-    float n = 0.0;
-    float amp = 1.0;
-    vec2 p = uv * 3.0 + u_time * 0.02;
-    for (int i = 0; i < 4; i++) {
-      n += smoothNoise(p) * amp;
-      p *= 2.1;
-      amp *= 0.45;
-    }
-
-    // Light source responding to mouse
-    float lightDist = length(uv - u_mouse);
-    float light = 0.0;
-    if (lightDist < 0.6) {
-      light = (1.0 - lightDist / 0.6) * 0.06;
-      light *= smoothstep(0.6, 0.0, lightDist);
-    }
-
-    // Color: deep warm green undertone
-    float r = 0.012 + n * 0.018 + light * 0.6;
-    float g = 0.018 + n * 0.025 + light * 0.8;
-    float b = 0.014 + n * 0.016 + light * 0.5;
-
-    // Subtle vignette
-    float vignette = 1.0 - length(uv - 0.5) * 0.4;
-    r *= vignette;
-    g *= vignette;
-    b *= vignette;
-
-    gl_FragColor = vec4(r, g, b, 1.0);
-  }
-</script>
-
 <script>
-// WebGL shader background
-const canvas = document.getElementById('bg');
-const gl = canvas.getContext('webgl', { alpha: false });
+const light = document.getElementById('light');
+const cursor = document.getElementById('cursor');
 
-function compile(gl, type, src) {
-  const s = gl.createShader(type);
-  gl.shaderSource(s, src);
-  gl.compileShader(s);
-  if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
-    console.error(gl.getShaderInfoLog(s));
-    gl.deleteShader(s);
-    return null;
-  }
-  return s;
-}
-
-function createProgram(gl, vs, fs) {
-  const p = gl.createProgram();
-  gl.attachShader(p, vs);
-  gl.attachShader(p, fs);
-  gl.linkProgram(p);
-  if (!gl.getProgramParameter(p, gl.LINK_STATUS)) {
-    console.error(gl.getProgramInfoLog(p));
-    return null;
-  }
-  return p;
-}
-
-const vs = compile(gl, gl.VERTEX_SHADER, document.getElementById('vert').textContent);
-const fs = compile(gl, gl.FRAGMENT_SHADER, document.getElementById('frag').textContent);
-const prog = createProgram(gl, vs, fs);
-
-gl.useProgram(prog);
-const posLoc = gl.getAttribLocation(prog, 'pos');
-const buf = gl.createBuffer();
-gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
-gl.enableVertexAttribArray(posLoc);
-gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
-
-const uRes = gl.getUniformLocation(prog, 'u_res');
-const uTime = gl.getUniformLocation(prog, 'u_time');
-const uMouse = gl.getUniformLocation(prog, 'u_mouse');
-
-let mouseX = 0.5, mouseY = 0.5;
-let targetX = 0.5, targetY = 0.5;
+let cx = window.innerWidth / 2;
+let cy = window.innerHeight / 2;
+let tx = cx, ty = cy;
 
 document.addEventListener('mousemove', e => {
-  targetX = e.clientX / window.innerWidth;
-  targetY = 1.0 - e.clientY / window.innerHeight;
+  tx = e.clientX;
+  ty = e.clientY;
 });
 
-function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  gl.viewport(0, 0, canvas.width, canvas.height);
+// Touch support
+document.addEventListener('touchmove', e => {
+  tx = e.touches[0].clientX;
+  ty = e.touches[0].clientY;
+}, { passive: true });
+
+function update() {
+  // Smooth follow with spring physics
+  cx += (tx - cx) * 0.12;
+  cy += (ty - cy) * 0.12;
+
+  light.style.background = `radial-gradient(
+    circle 220px at ${cx}px ${cy}px,
+    rgba(var(--glow-color), 0.95) 0%,
+    rgba(var(--glow-color), 0.4) 35%,
+    rgba(var(--glow-color), 0.06) 70%,
+    transparent 100%
+  )`;
+
+  cursor.style.left = cx + 'px';
+  cursor.style.top = cy + 'px';
+
+  requestAnimationFrame(update);
 }
-resize();
-window.addEventListener('resize', resize);
 
-function draw(t) {
-  mouseX += (targetX - mouseX) * 0.05;
-  mouseY += (targetY - mouseY) * 0.05;
+update();
 
-  gl.uniform2f(uRes, canvas.width, canvas.height);
-  gl.uniform1f(uTime, t * 0.001);
-  gl.uniform2f(uMouse, mouseX, mouseY);
-  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-  requestAnimationFrame(draw);
-}
-requestAnimationFrame(draw);
-
-// Character reveal
-const heroText = document.getElementById('hero-text');
-const words = ['Votre', 'back-office.',];
-let html = '';
-let charIndex = 0;
-words.forEach((word, wi) => {
-  if (wi > 0) html += '<br>';
-  for (const ch of word) {
-    html += `<span class="char" style="animation-delay:${0.15 + charIndex * 0.03}s">${ch === ' ' ? '&nbsp;' : ch}</span>`;
-    charIndex++;
-  }
-});
-heroText.innerHTML = html;
-
-// Scroll reveals
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('in');
-      observer.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
-
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+// Hide system cursor
+document.documentElement.style.cursor = 'none';
 </script>
 
 </body>
