@@ -186,6 +186,27 @@
     border-top: 1px solid rgba(255,255,255,0.06);
   }
 
+  .price-features {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .price-features li {
+    font-size: 13px;
+    color: var(--text-dim);
+    list-style: none;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .price-features li::before {
+    content: '·';
+    color: var(--text-faint);
+  }
+
   /* CTA */
   .cta { text-align: center; justify-content: center; }
 
@@ -330,13 +351,26 @@
           <div class="price-label">Essentiel</div>
           <div class="price-amount">290&nbsp;€</div>
           <div class="price-period">par mois</div>
-          <div class="price-setup">+ 500&nbsp;€ une fois</div>
+          <ul class="price-features">
+            <li>Réponses voyageurs 24/7</li>
+            <li>Check-in / check-out</li>
+            <li>Coordination ménage</li>
+            <li>Dashboard quotidien</li>
+          </ul>
+          <div class="price-setup">+ 500&nbsp;€ de mise en place</div>
         </div>
         <div class="price-col reveal reveal-d2">
           <div class="price-label">Pilote</div>
           <div class="price-amount">490&nbsp;€</div>
           <div class="price-period">par mois</div>
-          <div class="price-setup">+ 900&nbsp;€ une fois</div>
+          <ul class="price-features">
+            <li>Tout Essentiel</li>
+            <li>Rapports propriétaires mensuels</li>
+            <li>Gestion des urgences</li>
+            <li>Intégration calendrier</li>
+            <li>Biens illimités</li>
+          </ul>
+          <div class="price-setup">+ 900&nbsp;€ de mise en place</div>
         </div>
       </div>
     </div>
