@@ -4,244 +4,231 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EmpireOS</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #050508;
-    --text: #f0ede8;
-    --text-dim: #7a7670;
-    --text-faint: #3d3a36;
-    --accent: #d4a574;
-    --accent-dim: rgba(212,165,116,0.12);
-  }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: "Times New Roman", "Georgia", "Palatino", serif;
-    background: var(--bg);
-    color: var(--text);
+    font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+    background: #000;
+    color: #fff;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
-  }
-
-  #bg {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  main {
-    position: relative;
-    z-index: 1;
-    max-width: 1040px;
-    margin: 0 auto;
-    padding: 0 40px;
   }
 
   section {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    padding: 80px 0;
+    justify-content: center;
+    padding: 80px 40px;
   }
+
+  .block { max-width: 860px; width: 100%; }
 
   /* Hero */
-  .hero { justify-content: flex-start; }
-
-  .hero h1 {
-    font-size: clamp(64px, 10vw, 128px);
+  .hero .label {
+    font-size: 13px;
     font-weight: 400;
-    line-height: 0.92;
-    letter-spacing: -0.03em;
-    max-width: 800px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 40px;
   }
 
-  .hero h1 .word {
-    display: inline-block;
-    opacity: 0;
-    transform: translateY(80px);
-    animation: word-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  .hero .equation {
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
   }
 
-  @keyframes word-up {
-    to { opacity: 1; transform: translateY(0); }
+  .hero .equation .strike {
+    color: rgba(255,255,255,0.22);
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+    text-decoration-color: rgba(255,255,255,0.15);
   }
 
-  .hero p {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 17px;
-    color: var(--text-dim);
-    max-width: 380px;
+  .hero .equation .result {
+    color: #fff;
+  }
+
+  .hero .equation .arrow {
+    color: rgba(255,255,255,0.2);
+    margin: 0 0.15em;
+  }
+
+  .hero .sub {
+    font-size: 18px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.4);
     margin-top: 48px;
-    line-height: 1.7;
-    opacity: 0;
-    animation: fade-in 1s ease 1.5s forwards;
+    max-width: 520px;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
   }
 
-  @keyframes fade-in {
-    to { opacity: 1; }
+  .hero .sub strong {
+    color: #fff;
+    font-weight: 500;
   }
 
   /* Sections */
-  .section-num {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 11px;
-    letter-spacing: 0.12em;
+  .num {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 1px;
     text-transform: uppercase;
-    color: var(--text-faint);
-    margin-bottom: 20px;
+    color: rgba(255,255,255,0.25);
+    margin-bottom: 24px;
   }
 
   h2 {
     font-size: clamp(32px, 5vw, 56px);
-    font-weight: 400;
+    font-weight: 300;
     line-height: 1.1;
     letter-spacing: -0.02em;
     margin-bottom: 32px;
-    max-width: 600px;
+    max-width: 680px;
   }
 
-  .text-block {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  .text {
     font-size: 17px;
-    color: var(--text-dim);
-    max-width: 440px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.45);
+    max-width: 480px;
     line-height: 1.7;
+    letter-spacing: -0.01em;
   }
 
   /* Steps */
   .steps {
+    margin-top: 56px;
     display: flex;
     flex-direction: column;
-    gap: 56px;
-    margin-top: 64px;
+    gap: 40px;
   }
 
   .step {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    display: flex;
+    gap: 24px;
+    align-items: baseline;
   }
 
   .step-num {
-    font-size: 12px;
-    color: var(--text-faint);
-    margin-bottom: 6px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.2);
     font-variant-numeric: tabular-nums;
+    min-width: 20px;
   }
 
   .step h3 {
-    font-family: "Times New Roman", "Georgia", serif;
-    font-size: 26px;
-    font-weight: 400;
+    font-size: 18px;
+    font-weight: 500;
     letter-spacing: -0.01em;
-    margin-bottom: 6px;
-    color: var(--text);
+    margin-bottom: 4px;
   }
 
   .step p {
     font-size: 15px;
-    color: var(--text-dim);
-    max-width: 360px;
+    color: rgba(255,255,255,0.35);
     line-height: 1.6;
+    max-width: 380px;
   }
 
-  /* Pricing */
-  .pricing {
-    display: flex;
-    gap: 60px;
+  /* Price section */
+  .price-grid {
     margin-top: 56px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    display: flex;
+    gap: 64px;
   }
 
-  .price-col { flex: 1; }
-
-  .price-label {
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-faint);
-    margin-bottom: 12px;
-  }
-
-  .price-amount {
-    font-family: "Times New Roman", "Georgia", serif;
-    font-size: 64px;
-    font-weight: 400;
+  .price-num {
+    font-size: clamp(64px, 10vw, 112px);
+    font-weight: 300;
+    line-height: 1;
     letter-spacing: -0.03em;
-    margin-bottom: 4px;
   }
 
-  .price-period {
-    font-size: 14px;
-    color: var(--text-dim);
-    margin-bottom: 16px;
+  .price-num .currency {
+    font-size: 0.5em;
+    vertical-align: super;
+    color: rgba(255,255,255,0.3);
   }
 
-  .price-setup {
-    font-size: 13px;
-    color: var(--text-faint);
-    padding-top: 12px;
-    border-top: 1px solid rgba(255,255,255,0.06);
+  .price-num .period {
+    font-size: 0.25em;
+    color: rgba(255,255,255,0.25);
+    display: block;
+    margin-top: 8px;
+    letter-spacing: 0.02em;
   }
 
-  .price-features {
-    margin-top: 20px;
+  .price-details {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
+    margin-top: 24px;
   }
 
-  .price-features li {
-    font-size: 13px;
-    color: var(--text-dim);
+  .price-details li {
+    font-size: 14px;
+    color: rgba(255,255,255,0.4);
     list-style: none;
     display: flex;
     align-items: baseline;
-    gap: 8px;
+    gap: 10px;
   }
 
-  .price-features li::before {
-    content: '·';
-    color: var(--text-faint);
+  .price-details li::before {
+    content: '—';
+    color: rgba(255,255,255,0.15);
   }
 
   /* CTA */
-  .cta { text-align: center; justify-content: center; }
-
-  .cta h2 { margin-bottom: 16px; }
-
-  .cta p {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 17px;
-    color: var(--text-dim);
-    margin-bottom: 48px;
-  }
-
-  .cta a {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  .cta-btn {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    font-size: 15px;
-    color: var(--bg);
-    background: var(--accent);
-    padding: 15px 32px;
-    border-radius: 4px;
-    text-decoration: none;
+    gap: 10px;
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 14px;
     font-weight: 500;
-    transition: background 0.2s;
-    letter-spacing: -0.01em;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #000;
+    background: #fff;
+    padding: 18px 32px;
+    border: none;
+    text-decoration: none;
+    transition: background 0.15s;
   }
 
-  .cta a:hover { background: #dfb98a; }
+  .cta-btn:hover { background: rgba(255,255,255,0.85); }
 
-  /* Reveal on scroll */
+  .cta-arrow {
+    font-size: 16px;
+    transition: transform 0.15s;
+  }
+
+  .cta-btn:hover .cta-arrow { transform: translateX(3px); }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 60px 40px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.15);
+  }
+
+  /* Reveal */
   .reveal {
     opacity: 0;
-    transform: translateY(48px);
-    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(40px);
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .reveal.in {
@@ -253,135 +240,111 @@
   .reveal-d2 { transition-delay: 0.2s; }
   .reveal-d3 { transition-delay: 0.35s; }
 
-  /* Footer */
-  footer {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    text-align: center;
-    padding: 60px 0 40px;
-    font-size: 12px;
-    color: var(--text-faint);
-    letter-spacing: 0.02em;
-  }
-
-  .grain {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: 999;
-    pointer-events: none;
-    opacity: 0.03;
-    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-size: 200px 200px;
-  }
-
   @media (max-width: 768px) {
-    main { padding: 0 24px; }
-    .pricing { flex-direction: column; gap: 48px; }
-    section { padding: 60px 0; min-height: auto; }
-    .hero { min-height: 100vh; }
-    .hero h1 { font-size: clamp(44px, 12vw, 72px); }
-    .steps { gap: 40px; }
+    section { padding: 60px 24px; }
+    .price-grid { flex-direction: column; gap: 48px; }
+    .hero .equation { font-size: clamp(36px, 10vw, 56px); }
   }
 
   @media (prefers-reduced-motion) {
-    .hero h1 .word, .reveal, .hero p {
-      opacity: 1; transform: none; animation: none; transition: none;
-    }
-    #bg { display: none; }
+    .reveal { opacity: 1; transform: none; transition: none; }
   }
 </style>
 </head>
 <body>
 
-<canvas id="bg"></canvas>
-<div class="grain"></div>
-
 <main>
 
   <section class="hero">
-    <div>
-      <h1>
-        <span class="word" style="animation-delay:0.1s">Votre</span><br>
-        <span class="word" style="animation-delay:0.3s">back-office.</span>
+    <div class="block">
+      <div class="label">Back-office conciergerie</div>
+      <h1 class="equation">
+        <span class="strike">2&thinsp;500&thinsp;€</span>
+        <span class="arrow">→</span>
+        <span class="result">199&thinsp;€</span>
       </h1>
-      <p>Léon répond à vos voyageurs, coordonne vos check-ins, gère vos prestataires. Et vous, vous dormez.</p>
+      <p class="sub">Une assistante coûte <strong>2&thinsp;500&thinsp;€ par mois</strong>. Léon fait le même travail pour <strong>199&thinsp;€</strong>. Ce n'est pas une offre. C'est de l'arithmétique.</p>
     </div>
   </section>
 
   <section>
-    <div>
-      <div class="section-num reveal">01</div>
-      <h2 class="reveal">Arrêtez de répondre à vos messages à 23&nbsp;h.</h2>
-      <p class="text-block reveal reveal-d1">Une conciergerie qui tourne, c'est une conciergerie où le gérant dort la nuit. On branche Léon, on le forme sur vos biens. Vous récupérez vos soirées.</p>
+    <div class="block">
+      <div class="num reveal">01</div>
+      <h2 class="reveal">Il répond à vos voyageurs. Il coordonne vos check-ins. Il gère vos ménages.</h2>
+      <p class="text reveal reveal-d1">Vous lui confiez vos biens, vos codes, vos contacts. Il fait le reste. 24 heures sur 24. Sans pause. Sans erreur de code porte à 2&nbsp;h du matin.</p>
     </div>
   </section>
 
   <section>
-    <div>
-      <div class="section-num reveal">02</div>
-      <h2 class="reveal reveal-d1">Trois jours.</h2>
+    <div class="block">
+      <div class="num reveal">02</div>
+      <h2 class="reveal reveal-d1">Trois jours pour le mettre en place.</h2>
 
       <div class="steps">
         <div class="step reveal reveal-d1">
           <div class="step-num">1</div>
-          <h3>Vous nous passez vos infos</h3>
-          <p>Adresses, codes, contacts ménage. Rien de plus.</p>
+          <div>
+            <h3>Vous nous passez vos infos</h3>
+            <p>Adresses, codes, contacts ménage. Ce que vous savez déjà.</p>
+          </div>
         </div>
         <div class="step reveal reveal-d2">
           <div class="step-num">2</div>
-          <h3>On forme Léon</h3>
-          <p>Check-in 15&nbsp;h. Check-out 11&nbsp;h. Karine pour le ménage. Dubois pour la plomberie.</p>
+          <div>
+            <h3>On forme Léon</h3>
+            <p>Check-in 15&nbsp;h. Check-out 11&nbsp;h. Karine pour le ménage. Dubois pour la plomberie.</p>
+          </div>
         </div>
         <div class="step reveal reveal-d3">
           <div class="step-num">3</div>
-          <h3>Un résumé le matin</h3>
-          <p>Pas quarante-sept notifications. Ce qui s'est passé, ce qui est prévu, ce qui cloche.</p>
+          <div>
+            <h3>Vous recevez un résumé le matin</h3>
+            <p>Pas quarante-sept notifications. Ce qui s'est passé, ce qui est prévu.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <section>
-    <div>
-      <div class="section-num reveal">03</div>
-      <h2 class="reveal reveal-d1">Combien.</h2>
+    <div class="block">
+      <div class="num reveal">03</div>
+      <h2 class="reveal reveal-d1">Le prix.</h2>
 
-      <div class="pricing">
-        <div class="price-col reveal reveal-d1">
-          <div class="price-label">Essentiel</div>
-          <div class="price-amount">290&nbsp;€</div>
-          <div class="price-period">par mois</div>
-          <ul class="price-features">
+      <div class="price-grid reveal reveal-d1">
+        <div>
+          <div class="price-num">
+            <span class="currency">€</span>199<span class="period">par mois</span>
+          </div>
+          <div class="price-details">
             <li>Réponses voyageurs 24/7</li>
             <li>Check-in / check-out</li>
             <li>Coordination ménage</li>
-            <li>Dashboard quotidien</li>
-          </ul>
-          <div class="price-setup">+ 500&nbsp;€ de mise en place</div>
-        </div>
-        <div class="price-col reveal reveal-d2">
-          <div class="price-label">Pilote</div>
-          <div class="price-amount">490&nbsp;€</div>
-          <div class="price-period">par mois</div>
-          <ul class="price-features">
-            <li>Tout Essentiel</li>
-            <li>Rapports propriétaires mensuels</li>
+            <li>Rapports propriétaires</li>
             <li>Gestion des urgences</li>
-            <li>Intégration calendrier</li>
-            <li>Biens illimités</li>
-          </ul>
-          <div class="price-setup">+ 900&nbsp;€ de mise en place</div>
+            <li>Dashboard quotidien</li>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-end;padding-bottom:12px;">
+          <div style="font-size:15px;color:rgba(255,255,255,0.35);line-height:1.7;">
+            Pas de frais de mise en place.<br>
+            Pas d'engagement.<br>
+            <strong style="color:#fff;font-weight:500;">30 jours gratuits.</strong>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="cta">
-    <div>
-      <h2 class="reveal">Première semaine offerte.</h2>
-      <p class="reveal reveal-d1">Pas d'engagement. Pas de contrat.</p>
+  <section>
+    <div class="block" style="text-align:center;">
+      <h2 class="reveal" style="margin-bottom:16px;">Essayez Léon.</h2>
+      <p class="text reveal reveal-d1" style="margin:0 auto 48px;">Il n'y a aucune raison de ne pas le faire.</p>
       <div class="reveal reveal-d2">
-        <a href="#">Parler à Léon &rarr;</a>
+        <a href="#" class="cta-btn">
+          Parler à Léon
+          <span class="cta-arrow">→</span>
+        </a>
       </div>
     </div>
   </section>
@@ -393,146 +356,6 @@
 </main>
 
 <script>
-// ── WebGL: floating geometric shapes, catching light ──
-const canvas = document.getElementById('bg');
-const gl = canvas.getContext('webgl', { alpha: true });
-
-const vs = gl.createShader(gl.VERTEX_SHADER);
-gl.shaderSource(vs, `
-  attribute vec2 pos;
-  varying vec2 uv;
-  void main() {
-    uv = pos * 0.5 + 0.5;
-    gl_Position = vec4(pos, 0, 1);
-  }
-`);
-gl.compileShader(vs);
-
-const fs = gl.createShader(gl.FRAGMENT_SHADER);
-gl.shaderSource(fs, `
-  precision highp float;
-  varying vec2 uv;
-  uniform float time;
-  uniform vec2 res;
-  uniform vec2 m;
-
-  float hash(vec2 p) {
-    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
-  }
-
-  float noise(vec2 p) {
-    vec2 i = floor(p);
-    vec2 f = fract(p);
-    f = f * f * (3.0 - 2.0 * f);
-    return mix(
-      mix(hash(i), hash(i + vec2(1,0)), f.x),
-      mix(hash(i + vec2(0,1)), hash(i + vec2(1,1)), f.x),
-      f.y
-    );
-  }
-
-  float fbm(vec2 p) {
-    float v = 0.0, a = 0.5, s = 2.0;
-    for (int i = 0; i < 5; i++) {
-      v += a * noise(p);
-      p *= s;
-      a *= 0.5;
-    }
-    return v;
-  }
-
-  void main() {
-    vec2 p = uv;
-
-    // Three large, slow-moving light masses
-    float d1 = length(p - vec2(
-      0.25 + sin(time * 0.12) * 0.08,
-      0.35 + cos(time * 0.15) * 0.1
-    ));
-
-    float d2 = length(p - vec2(
-      0.7 + cos(time * 0.14) * 0.06,
-      0.25 + sin(time * 0.11) * 0.12
-    ));
-
-    float d3 = length(p - vec2(
-      0.5 + sin(time * 0.1 + 1.5) * 0.15,
-      0.7 + cos(time * 0.13 + 0.8) * 0.08
-    ));
-
-    // Mouse influence — subtle
-    float dm = length(p - m);
-    float ml = (1.0 - smoothstep(0.0, 0.5, dm)) * 0.04;
-
-    // FBM texture
-    float n = fbm(p * 4.0 + time * 0.03);
-
-    // Compose light masses with soft falloff
-    float l1 = exp(-d1 * 3.5) * 0.65;
-    float l2 = exp(-d2 * 4.0) * 0.5;
-    float l3 = exp(-d3 * 3.0) * 0.55;
-
-    float light = (l1 + l2 + l3) * (0.7 + n * 0.3) + ml;
-
-    // Color: warm, like light through amber glass
-    vec3 col = vec3(0.0);
-    col += light * vec3(0.12, 0.06, 0.02);  // warm amber
-    col += light * light * vec3(0.06, 0.04, 0.02); // hot core
-
-    // Subtle vignette
-    float vignette = 1.0 - length(uv - 0.5) * 0.5;
-    col *= vignette;
-
-    gl_FragColor = vec4(col, 0.0); // alpha 0 so we can use CSS background
-  }
-`);
-gl.compileShader(fs);
-
-const prog = gl.createProgram();
-gl.attachShader(prog, vs);
-gl.attachShader(prog, fs);
-gl.linkProgram(prog);
-gl.useProgram(prog);
-
-const buf = gl.createBuffer();
-gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
-const posLoc = gl.getAttribLocation(prog, 'pos');
-gl.enableVertexAttribArray(posLoc);
-gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
-
-const uTime = gl.getUniformLocation(prog, 'time');
-const uRes = gl.getUniformLocation(prog, 'res');
-const uM = gl.getUniformLocation(prog, 'm');
-
-let mx = 0.5, my = 0.5, tmx = 0.5, tmy = 0.5;
-
-document.addEventListener('mousemove', e => {
-  tmx = e.clientX / window.innerWidth;
-  tmy = 1.0 - e.clientY / window.innerHeight;
-});
-
-function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  gl.viewport(0, 0, canvas.width, canvas.height);
-}
-resize();
-window.addEventListener('resize', resize);
-
-function draw(t) {
-  mx += (tmx - mx) * 0.03;
-  my += (tmy - my) * 0.03;
-
-  gl.uniform1f(uTime, t * 0.001);
-  gl.uniform2f(uRes, canvas.width, canvas.height);
-  gl.uniform2f(uM, mx, my);
-  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-  requestAnimationFrame(draw);
-}
-requestAnimationFrame(draw);
-
-// ── Scroll reveals ──
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
