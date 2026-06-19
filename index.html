@@ -6,333 +6,509 @@
 <title>EmpireOS</title>
 <style>
   :root {
-    --bg: #000;
-    --text-hidden: rgba(255,255,255,0.04);
-    --glow-color: 255, 220, 180;
+    --bg: #050508;
+    --text: #f0ede8;
+    --text-dim: #7a7670;
+    --text-faint: #3d3a36;
+    --accent: #d4a574;
+    --accent-dim: rgba(212,165,116,0.12);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
+
   body {
+    font-family: "Times New Roman", "Georgia", "Palatino", serif;
     background: var(--bg);
-    color: var(--text-hidden);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    line-height: 1.5;
+    color: var(--text);
     -webkit-font-smoothing: antialiased;
-    cursor: none;
     overflow-x: hidden;
   }
 
-  /* Light overlay — mix-blend-mode: color-dodge brightens text */
-  #light {
+  #bg {
     position: fixed;
     top: 0; left: 0;
     width: 100vw; height: 100vh;
+    z-index: 0;
     pointer-events: none;
-    z-index: 10;
-    mix-blend-mode: screen;
-    background: radial-gradient(
-      circle 220px at 50% 50%,
-      rgba(var(--glow-color), 0.95) 0%,
-      rgba(var(--glow-color), 0.4) 35%,
-      rgba(var(--glow-color), 0.06) 70%,
-      transparent 100%
-    );
-    transition: background 0.015s linear;
   }
 
-  /* Cursor glow dot */
-  #cursor {
-    position: fixed;
-    pointer-events: none;
-    z-index: 11;
-    width: 8px; height: 8px;
-    background: rgba(var(--glow-color), 0.9);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow:
-      0 0 20px 8px rgba(var(--glow-color), 0.6),
-      0 0 60px 20px rgba(var(--glow-color), 0.25),
-      0 0 120px 40px rgba(var(--glow-color), 0.1);
-  }
-
-  /* Content */
   main {
     position: relative;
     z-index: 1;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 40px;
   }
 
   section {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 80px 32px;
+    padding: 80px 0;
   }
 
-  .block {
-    max-width: 600px;
-    width: 100%;
-    transition: color 0.3s;
-  }
+  /* Hero */
+  .hero { justify-content: flex-start; }
 
-  /* Text */
-  h1 {
-    font-size: clamp(52px, 9vw, 104px);
+  .hero h1 {
+    font-size: clamp(64px, 10vw, 128px);
     font-weight: 400;
-    line-height: 0.95;
-    letter-spacing: -0.04em;
-    margin-bottom: 36px;
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    max-width: 800px;
+  }
+
+  .hero h1 .word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(80px);
+    animation: word-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes word-up {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 17px;
+    color: var(--text-dim);
+    max-width: 380px;
+    margin-top: 48px;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fade-in 1s ease 1.5s forwards;
+  }
+
+  @keyframes fade-in {
+    to { opacity: 1; }
+  }
+
+  /* Sections */
+  .section-num {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 20px;
   }
 
   h2 {
-    font-size: clamp(28px, 4.5vw, 52px);
+    font-size: clamp(32px, 5vw, 56px);
     font-weight: 400;
-    line-height: 1.12;
-    letter-spacing: -0.03em;
-    margin-bottom: 24px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
+    max-width: 600px;
   }
 
-  p {
+  .text-block {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     font-size: 17px;
+    color: var(--text-dim);
+    max-width: 440px;
     line-height: 1.7;
-    max-width: 420px;
   }
 
-  .num {
-    font-size: 13px;
+  /* Steps */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+    margin-top: 64px;
+  }
+
+  .step {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  .step-num {
+    font-size: 12px;
+    color: var(--text-faint);
     margin-bottom: 6px;
     font-variant-numeric: tabular-nums;
   }
 
-  .step {
-    margin-bottom: 36px;
-  }
   .step h3 {
-    font-size: 18px;
+    font-family: "Times New Roman", "Georgia", serif;
+    font-size: 26px;
     font-weight: 400;
-    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+    color: var(--text);
   }
-  .step p { font-size: 15px; }
+
+  .step p {
+    font-size: 15px;
+    color: var(--text-dim);
+    max-width: 360px;
+    line-height: 1.6;
+  }
 
   /* Pricing */
-  .price-row {
+  .pricing {
     display: flex;
-    gap: 48px;
-    margin-top: 40px;
+    gap: 60px;
+    margin-top: 56px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
 
-  .price-item { flex: 1; }
+  .price-col { flex: 1; }
 
   .price-label {
-    font-size: 12px;
-    letter-spacing: 0.08em;
+    font-size: 11px;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    margin-bottom: 8px;
+    color: var(--text-faint);
+    margin-bottom: 12px;
   }
 
   .price-amount {
-    font-size: 52px;
+    font-family: "Times New Roman", "Georgia", serif;
+    font-size: 64px;
     font-weight: 400;
     letter-spacing: -0.03em;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
   }
 
-  .price-sub {
-    font-size: 13px;
-    margin-bottom: 10px;
+  .price-period {
+    font-size: 14px;
+    color: var(--text-dim);
+    margin-bottom: 16px;
   }
 
   .price-setup {
     font-size: 13px;
-    padding-top: 10px;
-    margin-top: 10px;
+    color: var(--text-faint);
+    padding-top: 12px;
+    border-top: 1px solid rgba(255,255,255,0.06);
   }
 
   /* CTA */
-  .cta-section { text-align: center; }
+  .cta { text-align: center; justify-content: center; }
 
-  .cta-section a {
+  .cta h2 { margin-bottom: 16px; }
+
+  .cta p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 17px;
+    color: var(--text-dim);
+    margin-bottom: 48px;
+  }
+
+  .cta a {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    font-size: 16px;
-    color: #000;
-    background: rgba(var(--glow-color), 0.9);
-    padding: 14px 28px;
-    border-radius: 6px;
+    gap: 8px;
+    font-size: 15px;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 15px 32px;
+    border-radius: 4px;
     text-decoration: none;
     font-weight: 500;
     transition: background 0.2s;
-    cursor: none;
+    letter-spacing: -0.01em;
   }
 
-  .cta-section a:hover { background: rgba(var(--glow-color), 1); }
+  .cta a:hover { background: #dfb98a; }
 
-  /* Grain */
+  /* Reveal on scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(48px);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-d1 { transition-delay: 0.05s; }
+  .reveal-d2 { transition-delay: 0.2s; }
+  .reveal-d3 { transition-delay: 0.35s; }
+
+  /* Footer */
+  footer {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    text-align: center;
+    padding: 60px 0 40px;
+    font-size: 12px;
+    color: var(--text-faint);
+    letter-spacing: 0.02em;
+  }
+
   .grain {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    z-index: 9;
+    z-index: 999;
     pointer-events: none;
     opacity: 0.03;
-    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-size: 180px 180px;
-  }
-
-  /* Breathing glow — auto-illuminates the current section slightly */
-  body::after {
-    content: '';
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 0;
-    background: radial-gradient(
-      ellipse 80% 50% at 50% 50%,
-      rgba(var(--glow-color), 0.025) 0%,
-      transparent 70%
-    );
-    opacity: 0.5;
-    animation: breathe 8s ease-in-out infinite;
-  }
-
-  @keyframes breathe {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 0.7; }
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
   }
 
   @media (max-width: 768px) {
-    .price-row { flex-direction: column; gap: 32px; }
-    section { padding: 60px 20px; }
-    #light { background: radial-gradient(circle 160px at 50% 50%, rgba(var(--glow-color), 0.95) 0%, rgba(var(--glow-color), 0.4) 35%, rgba(var(--glow-color), 0.06) 70%, transparent 100%); }
+    main { padding: 0 24px; }
+    .pricing { flex-direction: column; gap: 48px; }
+    section { padding: 60px 0; min-height: auto; }
+    .hero { min-height: 100vh; }
+    .hero h1 { font-size: clamp(44px, 12vw, 72px); }
+    .steps { gap: 40px; }
   }
 
   @media (prefers-reduced-motion) {
-    body::after { animation: none; opacity: 0.5; }
+    .hero h1 .word, .reveal, .hero p {
+      opacity: 1; transform: none; animation: none; transition: none;
+    }
+    #bg { display: none; }
   }
 </style>
 </head>
 <body>
 
-<div id="light"></div>
-<div id="cursor"></div>
+<canvas id="bg"></canvas>
 <div class="grain"></div>
 
 <main>
 
-  <section>
-    <div class="block">
-      <h1>Votre back&#8209;office.</h1>
+  <section class="hero">
+    <div>
+      <h1>
+        <span class="word" style="animation-delay:0.1s">Votre</span><br>
+        <span class="word" style="animation-delay:0.3s">back-office.</span>
+      </h1>
       <p>Léon répond à vos voyageurs, coordonne vos check-ins, gère vos prestataires. Et vous, vous dormez.</p>
     </div>
   </section>
 
   <section>
-    <div class="block">
-      <h2>Arrêtez de répondre à vos messages à 23h.</h2>
-      <p>Une conciergerie qui tourne, c'est une conciergerie où le gérant dort la nuit. On branche Léon sur votre téléphone. On le forme sur vos biens. Vous récupérez votre temps.</p>
+    <div>
+      <div class="section-num reveal">01</div>
+      <h2 class="reveal">Arrêtez de répondre à vos messages à 23&nbsp;h.</h2>
+      <p class="text-block reveal reveal-d1">Une conciergerie qui tourne, c'est une conciergerie où le gérant dort la nuit. On branche Léon, on le forme sur vos biens. Vous récupérez vos soirées.</p>
     </div>
   </section>
 
   <section>
-    <div class="block">
-      <h2>Trois jours, et c'est en place.</h2>
+    <div>
+      <div class="section-num reveal">02</div>
+      <h2 class="reveal reveal-d1">Trois jours.</h2>
 
-      <div class="step">
-        <div class="num">1</div>
-        <h3>Vous nous passez vos infos</h3>
-        <p>Adresses, codes d'accès, contacts ménage. Rien que vous ne sachiez déjà.</p>
-      </div>
-
-      <div class="step">
-        <div class="num">2</div>
-        <h3>On forme Léon sur vos procédures</h3>
-        <p>Check-in 15h. Check-out 11h. Karine pour le ménage. Dubois pour la plomberie.</p>
-      </div>
-
-      <div class="step">
-        <div class="num">3</div>
-        <h3>Un résumé le matin, pas 47 notifications</h3>
-        <p>Ce qui s'est passé cette nuit. Ce qui est prévu aujourd'hui. Ce qui cloche.</p>
+      <div class="steps">
+        <div class="step reveal reveal-d1">
+          <div class="step-num">1</div>
+          <h3>Vous nous passez vos infos</h3>
+          <p>Adresses, codes, contacts ménage. Rien de plus.</p>
+        </div>
+        <div class="step reveal reveal-d2">
+          <div class="step-num">2</div>
+          <h3>On forme Léon</h3>
+          <p>Check-in 15&nbsp;h. Check-out 11&nbsp;h. Karine pour le ménage. Dubois pour la plomberie.</p>
+        </div>
+        <div class="step reveal reveal-d3">
+          <div class="step-num">3</div>
+          <h3>Un résumé le matin</h3>
+          <p>Pas quarante-sept notifications. Ce qui s'est passé, ce qui est prévu, ce qui cloche.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <section>
-    <div class="block">
-      <h2>Combien.</h2>
+    <div>
+      <div class="section-num reveal">03</div>
+      <h2 class="reveal reveal-d1">Combien.</h2>
 
-      <div class="price-row">
-        <div class="price-item">
+      <div class="pricing">
+        <div class="price-col reveal reveal-d1">
           <div class="price-label">Essentiel</div>
-          <div class="price-amount">290€</div>
-          <div class="price-sub">par mois</div>
-          <div class="price-setup">+ 500€ une fois</div>
+          <div class="price-amount">290&nbsp;€</div>
+          <div class="price-period">par mois</div>
+          <div class="price-setup">+ 500&nbsp;€ une fois</div>
         </div>
-        <div class="price-item">
+        <div class="price-col reveal reveal-d2">
           <div class="price-label">Pilote</div>
-          <div class="price-amount">490€</div>
-          <div class="price-sub">par mois</div>
-          <div class="price-setup">+ 900€ une fois</div>
+          <div class="price-amount">490&nbsp;€</div>
+          <div class="price-period">par mois</div>
+          <div class="price-setup">+ 900&nbsp;€ une fois</div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="cta-section">
-    <div class="block">
-      <h2>Première semaine offerte.</h2>
-      <p style="margin:0 auto 32px;">Pas d'engagement. Pas de contrat.</p>
-      <a href="#">Parler à Léon →</a>
+  <section class="cta">
+    <div>
+      <h2 class="reveal">Première semaine offerte.</h2>
+      <p class="reveal reveal-d1">Pas d'engagement. Pas de contrat.</p>
+      <div class="reveal reveal-d2">
+        <a href="#">Parler à Léon &rarr;</a>
+      </div>
     </div>
   </section>
+
+  <footer>
+    EmpireOS &copy; 2026 &middot; Notitia
+  </footer>
 
 </main>
 
 <script>
-const light = document.getElementById('light');
-const cursor = document.getElementById('cursor');
+// ── WebGL: floating geometric shapes, catching light ──
+const canvas = document.getElementById('bg');
+const gl = canvas.getContext('webgl', { alpha: true });
 
-let cx = window.innerWidth / 2;
-let cy = window.innerHeight / 2;
-let tx = cx, ty = cy;
+const vs = gl.createShader(gl.VERTEX_SHADER);
+gl.shaderSource(vs, `
+  attribute vec2 pos;
+  varying vec2 uv;
+  void main() {
+    uv = pos * 0.5 + 0.5;
+    gl_Position = vec4(pos, 0, 1);
+  }
+`);
+gl.compileShader(vs);
+
+const fs = gl.createShader(gl.FRAGMENT_SHADER);
+gl.shaderSource(fs, `
+  precision highp float;
+  varying vec2 uv;
+  uniform float time;
+  uniform vec2 res;
+  uniform vec2 m;
+
+  float hash(vec2 p) {
+    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+  }
+
+  float noise(vec2 p) {
+    vec2 i = floor(p);
+    vec2 f = fract(p);
+    f = f * f * (3.0 - 2.0 * f);
+    return mix(
+      mix(hash(i), hash(i + vec2(1,0)), f.x),
+      mix(hash(i + vec2(0,1)), hash(i + vec2(1,1)), f.x),
+      f.y
+    );
+  }
+
+  float fbm(vec2 p) {
+    float v = 0.0, a = 0.5, s = 2.0;
+    for (int i = 0; i < 5; i++) {
+      v += a * noise(p);
+      p *= s;
+      a *= 0.5;
+    }
+    return v;
+  }
+
+  void main() {
+    vec2 p = uv;
+
+    // Three large, slow-moving light masses
+    float d1 = length(p - vec2(
+      0.25 + sin(time * 0.12) * 0.08,
+      0.35 + cos(time * 0.15) * 0.1
+    ));
+
+    float d2 = length(p - vec2(
+      0.7 + cos(time * 0.14) * 0.06,
+      0.25 + sin(time * 0.11) * 0.12
+    ));
+
+    float d3 = length(p - vec2(
+      0.5 + sin(time * 0.1 + 1.5) * 0.15,
+      0.7 + cos(time * 0.13 + 0.8) * 0.08
+    ));
+
+    // Mouse influence — subtle
+    float dm = length(p - m);
+    float ml = (1.0 - smoothstep(0.0, 0.5, dm)) * 0.04;
+
+    // FBM texture
+    float n = fbm(p * 4.0 + time * 0.03);
+
+    // Compose light masses with soft falloff
+    float l1 = exp(-d1 * 3.5) * 0.65;
+    float l2 = exp(-d2 * 4.0) * 0.5;
+    float l3 = exp(-d3 * 3.0) * 0.55;
+
+    float light = (l1 + l2 + l3) * (0.7 + n * 0.3) + ml;
+
+    // Color: warm, like light through amber glass
+    vec3 col = vec3(0.0);
+    col += light * vec3(0.12, 0.06, 0.02);  // warm amber
+    col += light * light * vec3(0.06, 0.04, 0.02); // hot core
+
+    // Subtle vignette
+    float vignette = 1.0 - length(uv - 0.5) * 0.5;
+    col *= vignette;
+
+    gl_FragColor = vec4(col, 0.0); // alpha 0 so we can use CSS background
+  }
+`);
+gl.compileShader(fs);
+
+const prog = gl.createProgram();
+gl.attachShader(prog, vs);
+gl.attachShader(prog, fs);
+gl.linkProgram(prog);
+gl.useProgram(prog);
+
+const buf = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+const posLoc = gl.getAttribLocation(prog, 'pos');
+gl.enableVertexAttribArray(posLoc);
+gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+
+const uTime = gl.getUniformLocation(prog, 'time');
+const uRes = gl.getUniformLocation(prog, 'res');
+const uM = gl.getUniformLocation(prog, 'm');
+
+let mx = 0.5, my = 0.5, tmx = 0.5, tmy = 0.5;
 
 document.addEventListener('mousemove', e => {
-  tx = e.clientX;
-  ty = e.clientY;
+  tmx = e.clientX / window.innerWidth;
+  tmy = 1.0 - e.clientY / window.innerHeight;
 });
 
-// Touch support
-document.addEventListener('touchmove', e => {
-  tx = e.touches[0].clientX;
-  ty = e.touches[0].clientY;
-}, { passive: true });
-
-function update() {
-  // Smooth follow with spring physics
-  cx += (tx - cx) * 0.12;
-  cy += (ty - cy) * 0.12;
-
-  light.style.background = `radial-gradient(
-    circle 220px at ${cx}px ${cy}px,
-    rgba(var(--glow-color), 0.95) 0%,
-    rgba(var(--glow-color), 0.4) 35%,
-    rgba(var(--glow-color), 0.06) 70%,
-    transparent 100%
-  )`;
-
-  cursor.style.left = cx + 'px';
-  cursor.style.top = cy + 'px';
-
-  requestAnimationFrame(update);
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  gl.viewport(0, 0, canvas.width, canvas.height);
 }
+resize();
+window.addEventListener('resize', resize);
 
-update();
+function draw(t) {
+  mx += (tmx - mx) * 0.03;
+  my += (tmy - my) * 0.03;
 
-// Hide system cursor
-document.documentElement.style.cursor = 'none';
+  gl.uniform1f(uTime, t * 0.001);
+  gl.uniform2f(uRes, canvas.width, canvas.height);
+  gl.uniform2f(uM, mx, my);
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  requestAnimationFrame(draw);
+}
+requestAnimationFrame(draw);
+
+// ── Scroll reveals ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 
 </body>
