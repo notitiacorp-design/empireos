@@ -4,367 +4,172 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EmpireOS</title>
-<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; background: #000; }
 
   body {
     font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
     background: #000;
     color: #fff;
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
   }
 
-  section {
+  .statement {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 80px 40px;
+    justify-content: flex-start;
+    padding: 60px 48px;
   }
 
-  .block { max-width: 860px; width: 100%; }
-
-  /* Hero */
-  .hero .label {
-    font-size: 13px;
-    font-weight: 400;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.35);
-    margin-bottom: 40px;
-  }
-
-  .hero .equation {
-    font-size: clamp(48px, 8vw, 96px);
+  .hero {
+    font-size: clamp(64px, 10vw, 128px);
     font-weight: 300;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-  }
-
-  .hero .equation .strike {
-    color: rgba(255,255,255,0.22);
-    text-decoration: line-through;
-    text-decoration-thickness: 2px;
-    text-decoration-color: rgba(255,255,255,0.15);
-  }
-
-  .hero .equation .result {
-    color: #fff;
-  }
-
-  .hero .equation .arrow {
-    color: rgba(255,255,255,0.2);
-    margin: 0 0.15em;
-  }
-
-  .hero .sub {
-    font-size: 18px;
-    font-weight: 400;
-    color: rgba(255,255,255,0.4);
-    margin-top: 48px;
-    max-width: 520px;
-    line-height: 1.6;
-    letter-spacing: -0.01em;
-  }
-
-  .hero .sub strong {
-    color: #fff;
-    font-weight: 500;
-  }
-
-  /* Sections */
-  .num {
-    font-size: 12px;
-    font-weight: 400;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.25);
-    margin-bottom: 24px;
-  }
-
-  h2 {
-    font-size: clamp(32px, 5vw, 56px);
-    font-weight: 300;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    margin-bottom: 32px;
-    max-width: 680px;
-  }
-
-  .text {
-    font-size: 17px;
-    font-weight: 400;
-    color: rgba(255,255,255,0.45);
-    max-width: 480px;
-    line-height: 1.7;
-    letter-spacing: -0.01em;
-  }
-
-  /* Steps */
-  .steps {
-    margin-top: 56px;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-  }
-
-  .step {
-    display: flex;
-    gap: 24px;
-    align-items: baseline;
-  }
-
-  .step-num {
-    font-size: 13px;
-    color: rgba(255,255,255,0.2);
-    font-variant-numeric: tabular-nums;
-    min-width: 20px;
-  }
-
-  .step h3 {
-    font-size: 18px;
-    font-weight: 500;
-    letter-spacing: -0.01em;
-    margin-bottom: 4px;
-  }
-
-  .step p {
-    font-size: 15px;
-    color: rgba(255,255,255,0.35);
-    line-height: 1.6;
-    max-width: 380px;
-  }
-
-  /* Price section */
-  .price-grid {
-    margin-top: 56px;
-    display: flex;
-    gap: 64px;
-  }
-
-  .price-num {
-    font-size: clamp(64px, 10vw, 112px);
-    font-weight: 300;
-    line-height: 1;
+    line-height: 1.02;
     letter-spacing: -0.03em;
   }
 
-  .price-num .currency {
-    font-size: 0.5em;
-    vertical-align: super;
+  .hero .strike {
+    color: rgba(255,255,255,0.18);
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+    text-decoration-color: rgba(255,255,255,0.08);
+  }
+
+  .hero .arrow {
+    color: rgba(255,255,255,0.12);
+    margin: 0 0.12em;
+  }
+
+  .sub {
+    font-size: 18px;
+    font-weight: 400;
     color: rgba(255,255,255,0.3);
+    max-width: 560px;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
   }
 
-  .price-num .period {
-    font-size: 0.25em;
-    color: rgba(255,255,255,0.25);
-    display: block;
-    margin-top: 8px;
-    letter-spacing: 0.02em;
+  .sub strong { color: #fff; font-weight: 500; }
+
+  .big {
+    font-size: clamp(40px, 7vw, 80px);
+    font-weight: 300;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    max-width: 740px;
   }
 
-  .price-details {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 24px;
+  .big .dim { color: rgba(255,255,255,0.2); }
+
+  .med {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 300;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
   }
 
-  .price-details li {
-    font-size: 14px;
-    color: rgba(255,255,255,0.4);
-    list-style: none;
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-  }
-
-  .price-details li::before {
-    content: '—';
-    color: rgba(255,255,255,0.15);
-  }
-
-  /* CTA */
-  .cta-btn {
+  .cta {
     display: inline-flex;
     align-items: center;
     gap: 10px;
     font-family: 'Geist Mono', ui-monospace, monospace;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
-    letter-spacing: 1.2px;
+    letter-spacing: 1px;
     text-transform: uppercase;
     color: #000;
     background: #fff;
-    padding: 18px 32px;
-    border: none;
+    padding: 16px 28px;
     text-decoration: none;
     transition: background 0.15s;
   }
 
-  .cta-btn:hover { background: rgba(255,255,255,0.85); }
+  .cta:hover { background: rgba(255,255,255,0.85); }
+  .cta-arrow { transition: transform 0.15s; }
+  .cta:hover .cta-arrow { transform: translateX(3px); }
 
-  .cta-arrow {
-    font-size: 16px;
-    transition: transform 0.15s;
-  }
-
-  .cta-btn:hover .cta-arrow { transform: translateX(3px); }
-
-  /* Footer */
-  footer {
-    text-align: center;
-    padding: 60px 40px;
-    font-size: 11px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.15);
-  }
-
-  /* Reveal */
-  .reveal {
+  .fade {
     opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(32px);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .reveal.in {
+  .fade.in {
     opacity: 1;
     transform: translateY(0);
   }
 
-  .reveal-d1 { transition-delay: 0.05s; }
-  .reveal-d2 { transition-delay: 0.2s; }
-  .reveal-d3 { transition-delay: 0.35s; }
+  .d1 { transition-delay: 0.1s; }
+  .d2 { transition-delay: 0.2s; }
+
+  footer {
+    padding: 80px 48px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.1);
+  }
 
   @media (max-width: 768px) {
-    section { padding: 60px 24px; }
-    .price-grid { flex-direction: column; gap: 48px; }
-    .hero .equation { font-size: clamp(36px, 10vw, 56px); }
+    .statement { padding: 40px 24px; }
   }
 
   @media (prefers-reduced-motion) {
-    .reveal { opacity: 1; transform: none; transition: none; }
+    .fade { opacity: 1; transform: none; transition: none; }
   }
 </style>
 </head>
 <body>
 
-<main>
+<div class="statement">
+  <div>
+    <h1 class="hero">
+      <span class="strike">2 500 €</span>
+      <span class="arrow">→</span>
+      199 €
+    </h1>
+    <p class="sub" style="margin-top:48px;">Une assistante coûte <strong>2 500 € par mois</strong>. Léon coûte <strong>199 €</strong>.</p>
+  </div>
+</div>
 
-  <section class="hero">
-    <div class="block">
-      <div class="label">Back-office conciergerie</div>
-      <h1 class="equation">
-        <span class="strike">2&thinsp;500&thinsp;€</span>
-        <span class="arrow">→</span>
-        <span class="result">199&thinsp;€</span>
-      </h1>
-      <p class="sub">Une assistante coûte <strong>2&thinsp;500&thinsp;€ par mois</strong>. Léon coûte <strong>199&thinsp;€</strong>.</p>
-    </div>
-  </section>
+<div class="statement">
+  <p class="big fade">
+    Il répond à vos voyageurs.<br>
+    <span class="dim">Il coordonne vos check-ins.</span><br>
+    <span class="dim">Il gère vos ménages.</span>
+  </p>
+</div>
 
-  <section>
-    <div class="block">
-      <div class="num reveal">01</div>
-      <h2 class="reveal">Il répond à vos voyageurs. Il coordonne vos check-ins. Il gère vos ménages.</h2>
-      <p class="text reveal reveal-d1">Vous nous confiez vos biens, vos codes, vos contacts.</p>
-    </div>
-  </section>
+<div class="statement">
+  <p class="med fade">
+    Trois jours.<br>
+    <span class="dim">Pas de frais de setup.</span><br>
+    <span class="dim">Trente jours gratuits.</span>
+  </p>
+</div>
 
-  <section>
-    <div class="block">
-      <div class="num reveal">02</div>
-      <h2 class="reveal reveal-d1">Trois jours pour le mettre en place.</h2>
+<div class="statement">
+  <a href="#" class="cta fade">
+    Parler à Léon
+    <span class="cta-arrow">→</span>
+  </a>
+</div>
 
-      <div class="steps">
-        <div class="step reveal reveal-d1">
-          <div class="step-num">1</div>
-          <div>
-            <h3>Vous nous passez vos infos</h3>
-            <p>Adresses, codes, contacts ménage.</p>
-          </div>
-        </div>
-        <div class="step reveal reveal-d2">
-          <div class="step-num">2</div>
-          <div>
-            <h3>On forme Léon</h3>
-            <p>Check-in 15&nbsp;h. Check-out 11&nbsp;h. Karine pour le ménage. Dubois pour la plomberie.</p>
-          </div>
-        </div>
-        <div class="step reveal reveal-d3">
-          <div class="step-num">3</div>
-          <div>
-            <h3>Vous recevez un résumé le matin</h3>
-            <p>Ce qui s'est passé, ce qui est prévu.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="block">
-      <div class="num reveal">03</div>
-      <h2 class="reveal reveal-d1">Le prix.</h2>
-
-      <div class="price-grid reveal reveal-d1">
-        <div>
-          <div class="price-num">
-            <span class="currency">€</span>199<span class="period">par mois</span>
-          </div>
-          <div class="price-details">
-            <li>Réponses voyageurs 24/7</li>
-            <li>Check-in / check-out</li>
-            <li>Coordination ménage</li>
-            <li>Rapports propriétaires</li>
-            <li>Gestion des urgences</li>
-            <li>Dashboard quotidien</li>
-          </div>
-        </div>
-        <div style="display:flex;align-items:flex-end;padding-bottom:12px;">
-          <div style="font-size:15px;color:rgba(255,255,255,0.35);line-height:1.7;">
-            Pas de frais de mise en place.<br>
-            Pas d'engagement.<br>
-            <strong style="color:#fff;font-weight:500;">30 jours gratuits.</strong>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="block" style="text-align:center;">
-      <h2 class="reveal" style="margin-bottom:48px;">Essayez Léon.</h2>
-      <div class="reveal reveal-d1">
-        <a href="#" class="cta-btn">
-          Parler à Léon
-          <span class="cta-arrow">→</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    EmpireOS &copy; 2026 &middot; Notitia
-  </footer>
-
-</main>
+<footer>
+  EmpireOS &middot; Notitia
+</footer>
 
 <script>
-const observer = new IntersectionObserver(entries => {
+const obs = new IntersectionObserver(entries => {
   entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('in');
-      observer.unobserve(e.target);
-    }
+    if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
   });
-}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+}, { threshold: 0.15, rootMargin: '0px 0px -30px 0px' });
 
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+document.querySelectorAll('.fade').forEach(el => obs.observe(el));
 </script>
 
 </body>
